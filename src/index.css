@@ -1,3 +1,14 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+
+a.active {
+    /* text-decoration: underline; */
+    border-bottom: 3px solid;
+    border-radius: 5px;
+    padding: 0px 10px;
+    color: #2739db;
+    font-weight: bold;
+    font-size: larger;
+}
