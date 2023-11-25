@@ -4,15 +4,17 @@ import { useContext } from "react";
 import { AuthContext } from "../../providers/AuthProvider";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { IoMdNotificationsOutline } from "react-icons/io"
 
 const Navbar = () => {
 
     const { user, logout } = useContext(AuthContext);
-    // console.log(user);
+    console.log(user);
 
-    const links = <div className="flex flex-col gap-3 lg:flex-row md:gap-6 text-lg font-medium">
+    const links = <div className="flex flex-col gap-3 lg:flex-row md:gap-6 items-center text-lg font-medium">
         <NavLink to="/">Home</NavLink>
         <NavLink to="/dashboard">Dashboard</NavLink>
+        <Link className="text-2xl"><IoMdNotificationsOutline /></Link>
 
     </div>
 
@@ -71,22 +73,19 @@ const Navbar = () => {
                     {
                         user ? <div className="flex items-center gap-2">
                             <div className="flex items-center gap-2">
-                                {/* <p className="text-lg font-medium">{user.displayName}</p> */}
-
                                 <div className="dropdown dropdown-end">
                                     <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
                                         <div className="w-10 rounded-full">
                                             <img src={user.photoURL} title={user.displayName} />
                                         </div>
                                     </label>
-                                    <ul tabIndex={0} className="mt-3 z-50 p-2 shadow menu menu-sm dropdown-content bg-base-300 rounded-box w-52 font-medium">
-                                        {/* profile pic link added here*/}
+                                    <ul tabIndex={0} className="mt-3 z-50 p-4 space-y-1 shadow menu menu-sm dropdown-content bg-base-300 rounded-box w-52 font-medium">
+                                        <p className="py-2 text-lg">{user?.displayName}</p>
+                                        <NavLink to="/dashboard" className="hover:text-blue-800 hover:underline hover:text-lg pb-2 text-base">Dashboard</NavLink>
+                                        <Link onClick={handleLogout} className="capitalize font-semibold  hover:btn-sm hover:text-lg bg-blue-700 w-full pl-3 py-1 text-white rounded-md">Logout</Link>
                                     </ul>
                                 </div>
-
-
                             </div>
-                            <button onClick={handleLogout} className="btn btn-outline capitalize w-28 text-xl font-semibold text-blue-800">Logout</button>
                         </div> :
                             <Link to='/login' className="btn btn-outline capitalize w-28 text-xl font-semibold text-blue-800">Login</Link>
                     }
