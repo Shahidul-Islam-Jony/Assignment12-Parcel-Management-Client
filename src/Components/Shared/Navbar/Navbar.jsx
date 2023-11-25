@@ -1,7 +1,7 @@
 import { Link, NavLink } from "react-router-dom";
-import '../../../src/index.css'
+import '../../../../src/index.css'
 import { useContext } from "react";
-import { AuthContext } from "../../providers/AuthProvider";
+import { AuthContext } from "../../../providers/AuthProvider";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { IoMdNotificationsOutline } from "react-icons/io"
