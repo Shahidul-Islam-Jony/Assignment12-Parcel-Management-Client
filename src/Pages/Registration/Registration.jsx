@@ -72,7 +72,7 @@ const Registration = () => {
                                     swal("Done!", "Registration successful", "success")
                                 }
                             })
-                        navigate(location.state || '/');
+                        navigate(location.state.from.pathname || '/');
                     })
                     .catch(error => {
                         toast.error(`${error}`, {
@@ -110,7 +110,7 @@ const Registration = () => {
                         }
                     })
 
-                navigate(location.state || '/');
+                navigate(location.state.from.pathname || '/');
 
             })
             .catch(error => {
