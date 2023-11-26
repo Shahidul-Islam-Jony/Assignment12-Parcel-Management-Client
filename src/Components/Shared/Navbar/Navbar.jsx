@@ -39,7 +39,7 @@ const Navbar = () => {
     }
 
     return (
-        <div className="sticky">
+        <div className="sticky top-0 shadow-md z-50">
             <div className="py-4 flex justify-between items-center bg-base-100">
                 <div className="flex items-center">
                     <div className="drawer z-50 w-10 lg:hidden">

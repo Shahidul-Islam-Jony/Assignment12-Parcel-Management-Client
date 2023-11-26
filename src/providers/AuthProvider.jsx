@@ -12,46 +12,79 @@ const provider = new GoogleAuthProvider();
 const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(null);
     const [loading, setLoading] = useState(true);
+ 
 
     const createUser = (email, password) => {
         setLoading(true);
         return createUserWithEmailAndPassword(auth, email, password);
     }
 
-    const login =(email,password)=>{
+    const login = (email, password) => {
         setLoading(true);
-        return signInWithEmailAndPassword(auth,email,password);
+        return signInWithEmailAndPassword(auth, email, password);
     }
 
-    const loginByGoogle = ()=>{
+    const loginByGoogle = () => {
         setLoading(true);
-        return signInWithPopup(auth,provider);
+        return signInWithPopup(auth, provider);
     }
 
-    const updateUser = (name,photoURL)=>{
+    const updateUser = (name, photoURL) => {
         setLoading(true);
-        return updateProfile(auth.currentUser,{
-            displayName:name, photoURL:photoURL
+        return updateProfile(auth.currentUser, {
+            displayName: name, photoURL: photoURL
         })
     }
 
 
 
-    const logout =()=>{
+    const logout = () => {
         setLoading(true);
         return signOut(auth);
     }
 
-    useEffect(()=>{
-        const unSubscribe = onAuthStateChanged(auth,(currentUser)=>{
+    // const setUserInDB = async () => {
+    //     console.log(user);
+    //     console.log('calling');
+    //     const userInfo = {
+    //         name: user?.displayName,
+    //         email: user?.email,
+    //         photoUrl: user?.photoURL,
+    //         type: userType
+    //     }
+    //     await axiosPublic.post('/users', userInfo)
+    //         .then(res => {
+    //             console.log(res);
+    //         })
+    // }
+
+    useEffect(() => {
+        const unSubscribe = onAuthStateChanged(auth, (currentUser) => {
             setUser(currentUser);
+            console.log();
+            // setUserInDB();
+            // set user info in database
+            // if (currentUser) {
+            //     console.log('hello');
+            //     const userInfo = {
+            //         name: currentUser?.displayName,
+            //         email: currentUser?.email,
+            //         photoUrl: currentUser?.photoURL,
+            //         type: userType
+            //     }
+            //     axiosPublic.post('/users', userInfo)
+            //         .then(res => {
+            //             console.log(res);
+            //         })
+            // }
+
             setLoading(false);
         })
 
-        return ()=>{
+        return () => {
             return unSubscribe();
         }
-    },[])
+    }, [])
 
     const authInfo = {
         user,
@@ -60,7 +93,7 @@ const AuthProvider = ({ children }) => {
         login,
         loginByGoogle,
         updateUser,
-        logout,
+        logout
     }
     return (
         <AuthContext.Provider value={authInfo}>

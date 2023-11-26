@@ -2,15 +2,19 @@ import { Link, useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { AuthContext } from "../../providers/AuthProvider";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import swal from 'sweetalert';
 import { Helmet, HelmetProvider } from "react-helmet-async";
 import regImg from '../../assets/images/Registration.jpg'
+import { FcGoogle } from "react-icons/fc";
+import useAxiosPublic from "../../hooks/useAxiosPublic";
 
 
 const Registration = () => {
-    const { createUser, updateUser, logout } = useContext(AuthContext);
+    const { createUser, updateUser, loginByGoogle } = useContext(AuthContext);
     const navigate = useNavigate();
+    const axiosPublic = useAxiosPublic();
+    const [userType, setUserType] = useState('user');
 
     const handleRegistration = e => {
         e.preventDefault();
@@ -18,8 +22,9 @@ const Registration = () => {
         const name = form.name.value;
         const email = form.email.value;
         const photoUrl = form.photo.value;
+        const type = form.type.value;
         const password = form.password.value;
-        // console.log(name,email,photoUrl,password);
+        // console.log(name,email,photoUrl,password,type);
         if (password.length < 6) {
             toast.error('Password should be 6 character or longer!', {
                 position: "top-center",
@@ -33,7 +38,7 @@ const Registration = () => {
             });
             return;
         }
-        if (!/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,32}$/.test(password)) {
+        if (!/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,32}$/.test(password)) {
             toast.error('Password should have atleast one Capital letter one small letter and one special character !', {
                 position: "top-center",
                 autoClose: 5000,
@@ -52,13 +57,22 @@ const Registration = () => {
                 console.log(result);
                 updateUser(name, photoUrl)
                     .then(() => {
-                        swal("Done!", "Registration successful", "success")
-                        // logout user and navigate to login
-                        logout()
-                            .then(() => { })
-                            .catch(error => console.log(error))
-                        navigate('/login');
-
+                        setUserType(type)
+                        // // set user info in database
+                        const userInfo = {
+                            name,
+                            email,
+                            photoUrl,
+                            type: userType
+                        }
+                        axiosPublic.post('/users', userInfo)
+                            .then(res => {
+                                console.log(res);
+                                if (res.data._id) {
+                                    swal("Done!", "Registration successful", "success")
+                                }
+                            })
+                        navigate(location.state || '/');
                     })
                     .catch(error => {
                         toast.error(`${error}`, {
@@ -73,6 +87,30 @@ const Registration = () => {
                         });
                         return;
                     })
+
+            })
+    }
+
+
+    const handleLoginByGoogle = () => {
+        loginByGoogle()
+            .then(result => {
+                // console.log(result.user.displayName);
+                const userInfo = {
+                    name: result.user.displayName,
+                    email: result.user.email,
+                    photoUrl: result.user.photoURL,
+                    type: userType
+                }
+                axiosPublic.post('/users', userInfo)
+                    .then(res => {
+                        console.log(res);
+                        if (res.data._id) {
+                            swal("Done!", "Registration successful", "success")
+                        }
+                    })
+
+                navigate(location.state || '/');
 
             })
             .catch(error => {
@@ -120,6 +158,19 @@ const Registration = () => {
                                     </label>
                                     <input type="text" name='photo' placeholder="Please give your photo url" className="input rounded-md w-full border-blue-600" required />
                                 </div>
+                                {/* user type */}
+                                <div className="form-control w-full ">
+                                    <label className="label">
+                                        <span className="text-xl font-medium">Your Types</span>
+                                    </label>
+                                    <select name="type" className="select select-bordered text-lg border-blue-600">
+                                        <option disabled selected>Please select your type</option>
+                                        <option value='user'>User</option>
+                                        <option value='deliveryMen'>DeliveryMen</option>
+                                    </select>
+                                </div>
+
+
                                 <div>
                                     <label className="label">
                                         <span className="text-xl font-medium">Password</span>
@@ -133,6 +184,10 @@ const Registration = () => {
                                     <p>Already have account ? Please <Link to='/login' className='font-medium hover:underline text-primary ml-2'>Login</Link></p>
                                 </div>
                             </form>
+                            <div>
+                                <div className="divider">OR</div>
+                                <button onClick={handleLoginByGoogle} className='btn btn-outline w-full text-lg border-blue-600 capitalize'><FcGoogle className='text-3xl mr-4'></FcGoogle>Login With Google</button>
+                            </div>
                         </div>
                     </div>
                 </div>

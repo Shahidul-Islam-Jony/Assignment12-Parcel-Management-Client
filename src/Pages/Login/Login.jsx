@@ -6,6 +6,8 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { Helmet, HelmetProvider } from 'react-helmet-async';
 import loginImg from "../../assets/images/login.jpg"
+import swal from 'sweetalert';
+import useAxiosPublic from '../../hooks/useAxiosPublic';
 
 const Login = () => {
 
@@ -13,6 +15,8 @@ const Login = () => {
     const location = useLocation();
     // console.log(location);
     const navigate = useNavigate();
+    const axiosPublic = useAxiosPublic();
+    const userType = 'user';
 
     const handleLogin = e => {
         e.preventDefault();
@@ -53,18 +57,24 @@ const Login = () => {
     const handleLoginByGoogle = () => {
         loginByGoogle()
             .then(result => {
-                console.log(result);
-                toast.success('Login Successful !', {
-                    position: "top-center",
-                    autoClose: 5000,
-                    hideProgressBar: false,
-                    closeOnClick: true,
-                    pauseOnHover: true,
-                    draggable: true,
-                    progress: undefined,
-                    theme: "light",
-                });
+                // console.log(result.user.displayName);
+                const userInfo = {
+                    name: result.user.displayName,
+                    email: result.user.email,
+                    photoUrl: result.user.photoURL,
+                    type: userType
+                }
+                axiosPublic.post('/users', userInfo)
+                    .then(res => {
+                        // console.log(res);
+                        if (res.data._id) {
+                            swal("Done!", "User create successful", "success")
+                        }
+                    })
+
+                swal("Done!", "Login successful", "success")
                 navigate(location.state || '/');
+
             })
             .catch(error => {
                 toast.error(`${error}`, {

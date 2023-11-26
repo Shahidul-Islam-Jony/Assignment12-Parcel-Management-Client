@@ -1,0 +1,12 @@
+import axios from 'axios'
+
+// axios instance
+const axiosPublic = axios.create({
+    baseURL: 'http://localhost:5000/health'
+})
+
+const useAxiosPublic = () => {
+    return axiosPublic;
+};
+
+export default useAxiosPublic;

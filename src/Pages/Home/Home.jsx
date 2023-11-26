@@ -1,4 +1,5 @@
-import Banner from "../../Components/Banner/Banner";
+import Banner from "../../Components/HomeComponents/Banner/Banner";
+import Features from "../../Components/HomeComponents/Features/Features";
 import Footer from "../../Components/Shared/Footer/Footer";
 import Navbar from "../../Components/Shared/Navbar/Navbar";
 
@@ -8,6 +9,7 @@ const Home = () => {
         <div className="w-11/12 mx-auto">
            <Navbar></Navbar>
            <Banner></Banner>
+           <Features></Features>
            <Footer></Footer>
         </div>
     );
