@@ -43,41 +43,11 @@ const AuthProvider = ({ children }) => {
         return signOut(auth);
     }
 
-    // const setUserInDB = async () => {
-    //     console.log(user);
-    //     console.log('calling');
-    //     const userInfo = {
-    //         name: user?.displayName,
-    //         email: user?.email,
-    //         photoUrl: user?.photoURL,
-    //         type: userType
-    //     }
-    //     await axiosPublic.post('/users', userInfo)
-    //         .then(res => {
-    //             console.log(res);
-    //         })
-    // }
-
+ 
     useEffect(() => {
         const unSubscribe = onAuthStateChanged(auth, (currentUser) => {
             setUser(currentUser);
             console.log();
-            // setUserInDB();
-            // set user info in database
-            // if (currentUser) {
-            //     console.log('hello');
-            //     const userInfo = {
-            //         name: currentUser?.displayName,
-            //         email: currentUser?.email,
-            //         photoUrl: currentUser?.photoURL,
-            //         type: userType
-            //     }
-            //     axiosPublic.post('/users', userInfo)
-            //         .then(res => {
-            //             console.log(res);
-            //         })
-            // }
-
             setLoading(false);
         })
 
