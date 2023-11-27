@@ -1,12 +1,16 @@
 import { useEffect, useState } from "react";
 import useGetMyParcel from "../../../hooks/useGetMyParcel";
+import useAxiosPublic from "../../../hooks/useAxiosPublic";
+import { ToastContainer, toast } from "react-toastify";
+import { Link } from "react-router-dom";
 
 const MyParcel = () => {
-    const { data, isLoading } = useGetMyParcel();
+    const { data, isLoading, refetch } = useGetMyParcel();
     const [parcels, setParcels] = useState([]);
-    useEffect(()=>{
+    const axiosPublic = useAxiosPublic();
+    useEffect(() => {
         setParcels(data)
-    },[data])
+    }, [data])
     console.log(parcels);
     const bookingDate = new Date();
     // console.log(bookingDate);
@@ -23,6 +27,38 @@ const MyParcel = () => {
         console.log(filteredData);
     }
 
+    const handleCancelParcel = (id) => {
+        console.log(id);
+        axiosPublic.patch(`/modifyParcel/${id}`, { status: 'cancelled' })
+            .then(res => {
+                console.log(res);
+                refetch();
+                toast.success('Parcel canceled !', {
+                    position: "top-center",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "light",
+                });
+            })
+            .catch(error => {
+                toast.error(`${error}`, {
+                    position: "top-center",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "light",
+                });
+                return;
+            })
+    }
+
     return (
         <div>
             <div className="flex items-center ml-14 my-10">
@@ -31,6 +67,8 @@ const MyParcel = () => {
                     <option disabled selected>Filter by status</option>
                     <option value='pending'>Pending</option>
                     <option value="delivered">Delivered</option>
+                    <option value="onTheWay">On The Way</option>
+                    <option value="cancelled">Cancelled</option>
                 </select>
             </div>
 
@@ -59,12 +97,12 @@ const MyParcel = () => {
                                     <p>Booking Date : {bookingDate.toDateString()} </p>
                                 </td>
                                 <td>Delivary Men ID</td>
-                                <td className={parcel.status === 'delivered' ? 'text-green-600 font-bold' : ''}>{parcel.status}</td>
+                                <td className={parcel.status === 'delivered' ? 'text-green-600 font-bold' : '' || parcel.status === 'cancel' ? 'text-red-500 font-bold' : ''}>{parcel.status}</td>
                                 <td>
                                     {
                                         parcel.status === 'pending' && <div className="flex flex-col gap-2">
-                                            <button className="btn btn-sm btn-primary">Update</button>
-                                            <button className="btn btn-sm btn-primary">Cancel</button>
+                                            <Link to={`/dashboard/updateBooking/${parcel._id}`} className={`btn btn-sm btn-primary ${parcel.status !== 'pending' ? 'btn-disabled' : ''}`}>Update</Link>
+                                            <button onClick={() => handleCancelParcel(parcel._id)} className="btn btn-sm btn-primary">Cancel</button>
                                         </div>
                                     }
                                     {
@@ -73,12 +111,13 @@ const MyParcel = () => {
                                         </div>
                                     }
                                 </td>
-                                <td><button className="btn btn-md btn-primary">Pay</button></td>
+                                <td><button className={`btn btn-md btn-primary ${parcel.status === 'cancel' && 'btn-disabled'}`}>Pay</button></td>
                             </tr>)
                         }
                     </tbody>
                 </table>
             </div>
+            <ToastContainer></ToastContainer>
         </div>
     );
 };

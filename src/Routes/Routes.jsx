@@ -8,6 +8,7 @@ import ErrorPage from "../Pages/ErrorPage/ErrorPage";
 import PrivateRoute from "./PrivateRoute";
 import BookAParcel from "../Pages/Dashboard/BookAParcel/BookAParcel";
 import MyParcel from "../Pages/Dashboard/MyParcel/MyParcel";
+import UpdateBooking from "../Pages/UpdateBooking/UpdateBooking";
 
 const router = createBrowserRouter([
     {
@@ -41,6 +42,10 @@ const router = createBrowserRouter([
             {
                 path: 'myParcel',
                 element: <MyParcel></MyParcel>
+            },
+            {
+                path: 'updateBooking/:id',
+                element: <UpdateBooking></UpdateBooking>
             }
         ]
     },

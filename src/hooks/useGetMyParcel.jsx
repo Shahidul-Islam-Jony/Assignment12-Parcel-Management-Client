@@ -7,7 +7,7 @@ import { useQuery } from "@tanstack/react-query";
 const useGetMyParcel = () => {
     const axiosPublic = useAxiosPublic();
     const { user } = useContext(AuthContext);
-    const { data, isLoading } = useQuery({
+    const { data, isLoading,refetch } = useQuery({
         queryKey: ['parcel'],
         queryFn: async () => {
             const res = await axiosPublic.get(`/myParcel?email=${user.email}`)
@@ -15,7 +15,7 @@ const useGetMyParcel = () => {
         }
     })
     // console.log(data);
-    return { data, isLoading }
+    return { data, isLoading,refetch }
 };
 
 export default useGetMyParcel;
