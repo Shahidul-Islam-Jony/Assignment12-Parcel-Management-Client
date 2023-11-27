@@ -9,6 +9,7 @@ import PrivateRoute from "./PrivateRoute";
 import BookAParcel from "../Pages/Dashboard/BookAParcel/BookAParcel";
 import MyParcel from "../Pages/Dashboard/MyParcel/MyParcel";
 import UpdateBooking from "../Pages/UpdateBooking/UpdateBooking";
+import MyProfile from "../Pages/MyProfile/MyProfile";
 
 const router = createBrowserRouter([
     {
@@ -46,6 +47,10 @@ const router = createBrowserRouter([
             {
                 path: 'updateBooking/:id',
                 element: <UpdateBooking></UpdateBooking>
+            },
+            {
+                path: 'myProfile',
+                element: <MyProfile></MyProfile>
             }
         ]
     },
