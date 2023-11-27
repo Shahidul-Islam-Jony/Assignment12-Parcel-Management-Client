@@ -2,6 +2,7 @@
 import { useContext, useState } from "react";
 import { AuthContext } from "../../../providers/AuthProvider";
 import useAxiosPublic from "../../../hooks/useAxiosPublic";
+import { ToastContainer, toast } from "react-toastify";
 
 
 const BookAParcel = () => {
@@ -37,19 +38,47 @@ const BookAParcel = () => {
             addressLatitude,
             addressLongitude,
             weight,
-            price
+            price,
+            status:'pending'
         }
 
-        axiosPublic.post('/bookAParcel',parcel)
+        axiosPublic.post('/bookAParcel', parcel)
             .then(res => {
-                console.log(res);
+                // console.log(res);
+                toast.success('Parcel Booked Successful !', {
+                    position: "top-center",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "light",
+                });
+                if(res.data._id){
+                    form.reset();
+                    setPrice(0);
+                }
+            })
+            .catch(error => {
+                toast.error(`${error}`, {
+                    position: "top-center",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "light",
+                });
+                return;
             })
     }
 
     const handleCalculatePrice = e => {
         // console.log(e.target.value);
         const weight = parseInt(e.target.value)
-        console.log(weight);
+        // console.log(weight);
         if (weight <= 1) {
             setPrice(50);
         }
@@ -190,6 +219,7 @@ const BookAParcel = () => {
                     </div>
                 </form>
             </div>
+            <ToastContainer></ToastContainer>
         </div>
     );
 };
