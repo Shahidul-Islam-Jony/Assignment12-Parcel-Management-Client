@@ -106,11 +106,11 @@ const Registration = () => {
                     .then(res => {
                         console.log(res);
                         if (res.data._id) {
-                            swal("Done!", "Registration successful", "success")
+                            swal("Done!", "User create successful", "success")
                         }
                     })
-
-                navigate(location.state.from.pathname || '/');
+                swal("Done!", "Registration successful", "success")
+                navigate(location.state?.from?.pathname || '/');
 
             })
             .catch(error => {

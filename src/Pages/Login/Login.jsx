@@ -59,9 +59,9 @@ const Login = () => {
             .then(result => {
                 // console.log(result.user.displayName);
                 const userInfo = {
-                    name: result.user.displayName,
-                    email: result.user.email,
-                    photoUrl: result.user.photoURL,
+                    name: result.user?.displayName,
+                    email: result.user?.email,
+                    photoUrl: result.user?.photoURL,
                     type: userType
                 }
                 axiosPublic.post('/users', userInfo)
@@ -73,7 +73,7 @@ const Login = () => {
                     })
 
                 swal("Done!", "Login successful", "success")
-                navigate(location.state.from.pathname || '/');
+                navigate(location.state?.from?.pathname || '/');
 
             })
             .catch(error => {
