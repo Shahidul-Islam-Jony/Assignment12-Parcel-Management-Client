@@ -3,8 +3,8 @@ import footerImg from '../../../assets/images/footer1.png'
 const Footer = () => {
     return (
         <div className='relative'>
-            <img src={footerImg} className='w-full h-96' alt="" />
-            <footer className='flex flex-col w-full absolute p-10 bg-transparent text-white  bottom-0'>
+            <img src={footerImg} className='w-full h-[850px] md:h-[450px] object-cover lg:object-fill lg:h-80' alt="" />
+            <footer className='flex flex-col w-full absolute p-5 md:p-10 bg-transparent text-white  bottom-0 top-12'>
                 <div className="footer text-lg">
                     <nav>
                         <header className="footer-title">Services</header>
@@ -38,7 +38,7 @@ const Footer = () => {
                         </fieldset>
                     </form>
                 </div>
-                <div className="text-center mt-8">
+                <div className="text-center mt-5">
                     <aside>
                         <p>Copyright © 2023 -Parcel Point</p>
                     </aside>

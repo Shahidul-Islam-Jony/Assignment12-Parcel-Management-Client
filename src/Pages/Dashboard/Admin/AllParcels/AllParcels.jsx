@@ -11,15 +11,6 @@ const AllParcels = () => {
             return res.data;
         }
     })
-
-    // const { data: allDelivaryMen } = useQuery({
-    //     queryKey: ['allDelivaryMen'],
-    //     queryFn: async () => {
-    //         const res = await axiosSecure.get(`/allUsers/${'delivaryMen'}`)
-    //         return res.data;
-    //     }
-    // })
-    // console.log(allDelivaryMen);
     console.log(parcels);
 
     const handleLoadDelivaryMan = async () => {
