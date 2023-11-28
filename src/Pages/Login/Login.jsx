@@ -27,16 +27,7 @@ const Login = () => {
         login(email, password)
             .then(result => {
                 console.log(result);
-                toast.success('Login Successful !', {
-                    position: "top-center",
-                    autoClose: 5000,
-                    hideProgressBar: false,
-                    closeOnClick: true,
-                    pauseOnHover: true,
-                    draggable: true,
-                    progress: undefined,
-                    theme: "light",
-                });
+                swal("Done!", "Login successful", "success")
                 navigate(location?.state?.from?.pathname || '/');
             })
             .catch(error => {

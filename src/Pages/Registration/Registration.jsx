@@ -15,16 +15,18 @@ const Registration = () => {
     const navigate = useNavigate();
     const axiosPublic = useAxiosPublic();
     const [userType, setUserType] = useState('user');
+    console.log();
 
     const handleRegistration = e => {
         e.preventDefault();
         const form = e.target;
         const name = form.name.value;
         const email = form.email.value;
+        const phoneNumber = form.phoneNumber.value;
         const photoUrl = form.photo.value;
         const type = form.type.value;
         const password = form.password.value;
-        // console.log(name,email,photoUrl,password,type);
+        // console.log(name,email,photoUrl,password,type,phoneNumber);
         if (password.length < 6) {
             toast.error('Password should be 6 character or longer!', {
                 position: "top-center",
@@ -58,12 +60,14 @@ const Registration = () => {
                 updateUser(name, photoUrl)
                     .then(() => {
                         setUserType(type)
-                        // // set user info in database
+                        // set user info in database
+                        // console.log('Afer set User type: ',userType);
                         const userInfo = {
                             name,
                             email,
+                            phoneNumber,
                             photoUrl,
-                            type: userType
+                            type
                         }
                         axiosPublic.post('/users', userInfo)
                             .then(res => {
@@ -72,7 +76,7 @@ const Registration = () => {
                                     swal("Done!", "Registration successful", "success")
                                 }
                             })
-                        navigate(location.state.from.pathname || '/');
+                        navigate('/');
                     })
                     .catch(error => {
                         toast.error(`${error}`, {
@@ -88,6 +92,19 @@ const Registration = () => {
                         return;
                     })
 
+            })
+            .catch(error => {
+                toast.error(`${error}`, {
+                    position: "top-center",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "light",
+                });
+                return;
             })
     }
 
@@ -110,7 +127,7 @@ const Registration = () => {
                         }
                     })
                 swal("Done!", "Registration successful", "success")
-                navigate(location?.state?.from?.pathname || '/');
+                navigate('/');
 
             })
             .catch(error => {
@@ -151,6 +168,12 @@ const Registration = () => {
                                         <span className="text-xl font-medium">Email</span>
                                     </label>
                                     <input type="email" name='email' placeholder="Email" className="input rounded-md w-full border-blue-600" required />
+                                </div>
+                                <div>
+                                    <label className="label">
+                                        <span className="text-xl font-medium">Phone Number</span>
+                                    </label>
+                                    <input type="number" name='phoneNumber' placeholder="Your phone number" className="input rounded-md w-full border-blue-600" required />
                                 </div>
                                 <div>
                                     <label className="label">
