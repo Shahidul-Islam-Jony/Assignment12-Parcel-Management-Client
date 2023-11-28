@@ -1,7 +1,7 @@
 /* eslint-disable react/no-unescaped-entities */
 import { useContext, useState } from "react";
-import { AuthContext } from "../../../providers/AuthProvider";
-import useAxiosPublic from "../../../hooks/useAxiosPublic";
+import { AuthContext } from "../../../../providers/AuthProvider";
+import useAxiosPublic from "../../../../hooks/useAxiosPublic";
 import { ToastContainer, toast } from "react-toastify";
 
 
@@ -9,6 +9,9 @@ const BookAParcel = () => {
     const { user } = useContext(AuthContext);
     const [price, setPrice] = useState(0);
     const axiosPublic = useAxiosPublic();
+
+    const bookingDate = new Date().toLocaleDateString();
+    // console.log(bookingDate);
 
     const handleBookParcel = e => {
         e.preventDefault();
@@ -20,7 +23,7 @@ const BookAParcel = () => {
         const recieverName = form.recieverName.value;
         const recieverPhone = form.recieverPhone.value;
         const address = form.address.value;
-        const date = form.date.value;
+        const requestDate = form.requestDate.value;
         const addressLatitude = form.addressLatitude.value;
         const addressLongitude = form.addressLongitude.value;
         const weight = form.weight.value;
@@ -34,12 +37,13 @@ const BookAParcel = () => {
             recieverName,
             recieverPhone,
             address,
-            date,
+            requestDate,
+            bookingDate,
             addressLatitude,
             addressLongitude,
             weight,
             price,
-            status:'pending'
+            status: 'pending'
         }
 
         axiosPublic.post('/bookAParcel', parcel)
@@ -55,7 +59,7 @@ const BookAParcel = () => {
                     progress: undefined,
                     theme: "light",
                 });
-                if(res.data._id){
+                if (res.data._id) {
                     form.reset();
                     setPrice(0);
                 }
@@ -126,7 +130,7 @@ const BookAParcel = () => {
                                     <span className="label-text text-xl font-medium">Phone Number</span>
                                 </label>
                                 <label className="">
-                                    <input type="number" name="phone" placeholder="Type your phone number" className="input w-full input-bordered" required/>
+                                    <input type="number" name="phone" placeholder="Type your phone number" className="input w-full input-bordered" required />
                                 </label>
                             </div>
                             <div className="form-control w-full md:w-1/2">
@@ -134,7 +138,7 @@ const BookAParcel = () => {
                                     <span className="label-text text-xl font-medium">Parcel Type</span>
                                 </label>
                                 <label className="">
-                                    <input type="text" name="parcelType" placeholder="Parcel type" className="input w-full input-bordered" required/>
+                                    <input type="text" name="parcelType" placeholder="Parcel type" className="input w-full input-bordered" required />
                                 </label>
                             </div>
                         </div>
@@ -145,7 +149,7 @@ const BookAParcel = () => {
                                     <span className="label-text text-xl font-medium">Reciever's Name</span>
                                 </label>
                                 <label className="">
-                                    <input type="text" name="recieverName" placeholder="Type reciever name" className="input w-full input-bordered" required/>
+                                    <input type="text" name="recieverName" placeholder="Type reciever name" className="input w-full input-bordered" required />
                                 </label>
                             </div>
                             <div className="form-control w-full md:w-1/2">
@@ -153,7 +157,7 @@ const BookAParcel = () => {
                                     <span className="label-text text-xl font-medium">Receiver's Phone Number</span>
                                 </label>
                                 <label className="">
-                                    <input type="number" name="recieverPhone" placeholder="Reciever phone number" className="input w-full input-bordered" required/>
+                                    <input type="number" name="recieverPhone" placeholder="Reciever phone number" className="input w-full input-bordered" required />
                                 </label>
                             </div>
                         </div>
@@ -164,7 +168,7 @@ const BookAParcel = () => {
                                     <span className="label-text text-xl font-medium">Parcel Delivery Address</span>
                                 </label>
                                 <label className="">
-                                    <input type="text" name="address" placeholder="Type reciever address" className="input w-full input-bordered" required/>
+                                    <input type="text" name="address" placeholder="Type reciever address" className="input w-full input-bordered" required />
                                 </label>
                             </div>
                             <div className="form-control w-full md:w-1/2">
@@ -172,7 +176,7 @@ const BookAParcel = () => {
                                     <span className="label-text text-xl font-medium">Requested Delivery Date</span>
                                 </label>
                                 <label className="">
-                                    <input type="date" name="date" placeholder=" Requested Delivery Date" className="input w-full input-bordered" required/>
+                                    <input type="date" name="requestDate" placeholder=" Requested Delivery Date" className="input w-full input-bordered" required />
                                 </label>
                             </div>
                         </div>
@@ -183,7 +187,7 @@ const BookAParcel = () => {
                                     <span className="label-text text-xl font-medium">Delivery Address Latitude</span>
                                 </label>
                                 <label className="">
-                                    <input type="text" name="addressLatitude" placeholder="i.e 21.121365496" className="input w-full input-bordered" required/>
+                                    <input type="text" name="addressLatitude" placeholder="i.e 21.121365496" className="input w-full input-bordered" required />
                                 </label>
                             </div>
                             <div className="form-control w-full md:w-1/2">
@@ -191,7 +195,7 @@ const BookAParcel = () => {
                                     <span className="label-text text-xl font-medium">Delivery Address longitude</span>
                                 </label>
                                 <label className="">
-                                    <input type="text" name="addressLongitude" placeholder="i.e 21.121365496" className="input w-full input-bordered" required/>
+                                    <input type="text" name="addressLongitude" placeholder="i.e 21.121365496" className="input w-full input-bordered" required />
                                 </label>
                             </div>
                         </div>
@@ -202,7 +206,7 @@ const BookAParcel = () => {
                                     <span className="label-text text-xl font-medium">Parcel Weight</span>
                                 </label>
                                 <label className="">
-                                    <input type="number" name="weight" onChange={handleCalculatePrice} placeholder="Parcel weight" className="input w-full input-bordered" required/>
+                                    <input type="number" name="weight" onChange={handleCalculatePrice} placeholder="Parcel weight" className="input w-full input-bordered" required />
                                 </label>
                             </div>
                             <div className="form-control w-full md:w-1/2">

@@ -1,4 +1,4 @@
-import {  NavLink, Outlet } from "react-router-dom";
+import { NavLink, Outlet } from "react-router-dom";
 import useSingleUser from "../hooks/useSingleUser";
 
 
@@ -16,6 +16,15 @@ const Dashboard = () => {
                             <NavLink className="bg-white py-1 pl-4 md:mx-2 rounded-lg text-lg font-medium hover:bg-gray-300" to='/dashboard/bookParcel'>Book a Parcel</NavLink>
                             <NavLink className="bg-white py-1 pl-4 md:mx-2 rounded-lg text-lg font-medium hover:bg-gray-300" to='/dashboard/myParcel'>My Parcels</NavLink>
                             <NavLink className="bg-white py-1 pl-4 md:mx-2 rounded-lg text-lg font-medium hover:bg-gray-300" to='myProfile'>My Profile</NavLink>
+                        </div>
+                    }
+                    {
+                        user?.type === 'admin' && <div className="flex flex-col gap-4">
+                            {/* Admin panel */}
+                            <NavLink className="bg-white py-1 pl-4 md:mx-2 rounded-lg text-lg font-medium hover:bg-gray-300" to='/dashboard/statistics'>Statistics</NavLink>
+                            <NavLink className="bg-white py-1 pl-4 md:mx-2 rounded-lg text-lg font-medium hover:bg-gray-300" to='/dashboard/allParcels'>All Parcels</NavLink>
+                            <NavLink className="bg-white py-1 pl-4 md:mx-2 rounded-lg text-lg font-medium hover:bg-gray-300" to='/dashboard/allUsers'>All Users</NavLink>
+                            <NavLink className="bg-white py-1 pl-4 md:mx-2 rounded-lg text-lg font-medium hover:bg-gray-300" to='/dashboard/allDelivaryMen'>All DelivaryMen</NavLink>
                         </div>
                     }
                 </ul>

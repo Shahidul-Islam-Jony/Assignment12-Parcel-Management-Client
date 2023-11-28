@@ -6,10 +6,12 @@ import Login from "../Pages/Login/Login";
 import Registration from "../Pages/Registration/Registration";
 import ErrorPage from "../Pages/ErrorPage/ErrorPage";
 import PrivateRoute from "./PrivateRoute";
-import BookAParcel from "../Pages/Dashboard/BookAParcel/BookAParcel";
-import MyParcel from "../Pages/Dashboard/MyParcel/MyParcel";
+import BookAParcel from "../Pages/Dashboard/User/BookAParcel/BookAParcel";
+import MyParcel from "../Pages/Dashboard/User/MyParcel/MyParcel";
+import MyProfile from "../Pages/Dashboard/User/MyProfile/MyProfile";
 import UpdateBooking from "../Pages/UpdateBooking/UpdateBooking";
-import MyProfile from "../Pages/MyProfile/MyProfile";
+import Statistics from "../Pages/Dashboard/Admin/Statistics/Statistics";
+import AllParcels from "../Pages/Dashboard/Admin/AllParcels/AllParcels";
 
 const router = createBrowserRouter([
     {
@@ -35,7 +37,7 @@ const router = createBrowserRouter([
         path: 'dashboard',
         element: <PrivateRoute><Dashboard></Dashboard></PrivateRoute>,
         children: [
-            // users route
+            // users routes
             {
                 path: 'bookParcel',
                 element: <BookAParcel></BookAParcel>
@@ -51,6 +53,15 @@ const router = createBrowserRouter([
             {
                 path: 'myProfile',
                 element: <MyProfile></MyProfile>
+            },
+            // Admin Routes
+
+            {
+                path: 'statistics',
+                element: <Statistics></Statistics>
+            }, {
+                path: 'allParcels',
+                element: <AllParcels></AllParcels>
             }
         ]
     },

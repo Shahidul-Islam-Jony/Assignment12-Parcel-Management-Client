@@ -13,7 +13,7 @@ const Login = () => {
 
     const { login, loginByGoogle } = useContext(AuthContext);
     const location = useLocation();
-    // console.log(location.state.from.pathname);
+    // console.log(location?.state?.from?.pathname);
     const navigate = useNavigate();
     const axiosPublic = useAxiosPublic();
     const userType = 'user';
@@ -37,7 +37,7 @@ const Login = () => {
                     progress: undefined,
                     theme: "light",
                 });
-                navigate(location.state.from.pathname || '/');
+                navigate(location?.state?.from?.pathname || '/');
             })
             .catch(error => {
                 toast.error(`${error}`, {
@@ -73,7 +73,7 @@ const Login = () => {
                     })
 
                 swal("Done!", "Login successful", "success")
-                navigate(location.state?.from?.pathname || '/');
+                navigate(location?.state?.from?.pathname || '/');
 
             })
             .catch(error => {

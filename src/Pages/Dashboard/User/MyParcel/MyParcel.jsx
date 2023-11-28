@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
-import useGetMyParcel from "../../../hooks/useGetMyParcel";
-import useAxiosPublic from "../../../hooks/useAxiosPublic";
+import useGetMyParcel from "../../../../hooks/useGetMyParcel";
+import useAxiosPublic from "../../../../hooks/useAxiosPublic";
 import { ToastContainer, toast } from "react-toastify";
 import { Link } from "react-router-dom";
+import Swal from "sweetalert2";
 
 const MyParcel = () => {
     const { data, isLoading, refetch } = useGetMyParcel();
@@ -12,8 +13,6 @@ const MyParcel = () => {
         setParcels(data)
     }, [data])
     console.log(parcels);
-    const bookingDate = new Date();
-    // console.log(bookingDate);
 
     if (isLoading) {
         return <div className="flex justify-center mt-28"><span className="loading loading-spinner loading-lg"></span></div>
@@ -29,34 +28,47 @@ const MyParcel = () => {
 
     const handleCancelParcel = (id) => {
         console.log(id);
-        axiosPublic.patch(`/modifyParcel/${id}`, { status: 'cancelled' })
-            .then(res => {
-                console.log(res);
-                refetch();
-                toast.success('Parcel canceled !', {
-                    position: "top-center",
-                    autoClose: 5000,
-                    hideProgressBar: false,
-                    closeOnClick: true,
-                    pauseOnHover: true,
-                    draggable: true,
-                    progress: undefined,
-                    theme: "light",
-                });
-            })
-            .catch(error => {
-                toast.error(`${error}`, {
-                    position: "top-center",
-                    autoClose: 5000,
-                    hideProgressBar: false,
-                    closeOnClick: true,
-                    pauseOnHover: true,
-                    draggable: true,
-                    progress: undefined,
-                    theme: "light",
-                });
-                return;
-            })
+
+        Swal.fire({
+            title: "Are you sure you want to cancel you parcel?",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            cancelButtonText: "No",
+            confirmButtonText: "Yes!"
+        }).then((result) => {
+            if (result.isConfirmed) {
+                axiosPublic.patch(`/modifyParcel/${id}`, { status: 'cancelled' })
+                    .then(res => {
+                        console.log(res);
+                        refetch();
+                        toast.success('Parcel canceled !', {
+                            position: "top-center",
+                            autoClose: 5000,
+                            hideProgressBar: false,
+                            closeOnClick: true,
+                            pauseOnHover: true,
+                            draggable: true,
+                            progress: undefined,
+                            theme: "light",
+                        });
+                    })
+                    .catch(error => {
+                        toast.error(`${error}`, {
+                            position: "top-center",
+                            autoClose: 5000,
+                            hideProgressBar: false,
+                            closeOnClick: true,
+                            pauseOnHover: true,
+                            draggable: true,
+                            progress: undefined,
+                            theme: "light",
+                        });
+                        return;
+                    })
+            }
+        });
     }
 
     return (
@@ -92,9 +104,9 @@ const MyParcel = () => {
                             parcels?.map(parcel => <tr key={parcel._id}>
                                 <th>{parcel.parcelType}</th>
                                 <td>
-                                    <p>Requested Delivary : {parcel.date.split('T')[0]}</p>
-                                    <p>Approximate Delivary : </p>
-                                    <p>Booking Date : {bookingDate.toDateString()} </p>
+                                    <p>Requested Delivary Date: {parcel?.requestDate.split('T')[0]}</p>
+                                    <p>Approximate Delivary Date: </p>
+                                    <p>Booking Date : {parcel?.bookingDate.split('T')[0]} </p>
                                 </td>
                                 <td>Delivary Men ID</td>
                                 <td className={parcel.status === 'delivered' ? 'text-green-600 font-bold' : '' || parcel.status === 'cancel' ? 'text-red-500 font-bold' : ''}>{parcel.status}</td>

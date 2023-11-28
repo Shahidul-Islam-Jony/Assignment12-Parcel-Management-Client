@@ -1,8 +1,8 @@
 import { useContext, useState } from "react";
-import useAxiosPublic from "../../hooks/useAxiosPublic";
-import useSingleUser from "../../hooks/useSingleUser";
+import useAxiosPublic from "../../../../hooks/useAxiosPublic";
+import useSingleUser from "../../../../hooks/useSingleUser";
 import { ToastContainer, toast } from "react-toastify";
-import { AuthContext } from "../../providers/AuthProvider";
+import { AuthContext } from "../../../../providers/AuthProvider";
 
 const image_hosting_key = import.meta.env.VITE_IMAGE_HOSTING_KEY;
 const image_hosting_url = `https://api.imgbb.com/1/upload?key=${image_hosting_key}`;

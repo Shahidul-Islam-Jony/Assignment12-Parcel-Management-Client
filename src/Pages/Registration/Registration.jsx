@@ -110,7 +110,7 @@ const Registration = () => {
                         }
                     })
                 swal("Done!", "Registration successful", "success")
-                navigate(location.state?.from?.pathname || '/');
+                navigate(location?.state?.from?.pathname || '/');
 
             })
             .catch(error => {
