@@ -27,6 +27,14 @@ const Dashboard = () => {
                             <NavLink className="bg-white py-1 pl-4 md:mx-2 rounded-lg text-lg font-medium hover:bg-gray-300" to='/dashboard/allDelivaryMen'>All DelivaryMen</NavLink>
                         </div>
                     }
+
+
+
+                    {/* Common Route */}
+                    <div className="divider my-10"></div>
+                    <div className="flex flex-col gap-4">
+                        <NavLink className="bg-white py-1 pl-4 md:mx-2 rounded-lg text-lg font-medium hover:bg-gray-300" to='/'>Home</NavLink>
+                    </div>
                 </ul>
             </div>
             {/* dashboard content */}

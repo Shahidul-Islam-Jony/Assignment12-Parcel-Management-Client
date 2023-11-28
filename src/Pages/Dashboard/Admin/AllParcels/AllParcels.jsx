@@ -1,10 +1,16 @@
 /* eslint-disable react/no-unescaped-entities */
 import { useQuery } from "@tanstack/react-query";
 import useAxiosSecure from "../../../../hooks/useAxiosSecure";
+import { useState } from "react";
+import swal from "sweetalert";
+import { ToastContainer, toast } from "react-toastify";
 
 const AllParcels = () => {
     const axiosSecure = useAxiosSecure();
-    const { data: parcels = [] } = useQuery({
+    const [deliveryMens, setDelivaryMens] = useState([]);
+    const [parcelId, setParcelId] = useState('');
+
+    const { data: parcels = [], refetch } = useQuery({
         queryKey: ['allParcels'],
         queryFn: async () => {
             const res = await axiosSecure.get('/allParcels')
@@ -13,13 +19,51 @@ const AllParcels = () => {
     })
     console.log(parcels);
 
-    const handleLoadDelivaryMan = async () => {
+    const handleLoadDelivaryMan = async (id) => {
+        setParcelId(id);
+        // console.log('Parcel Id : ', id);
         // open modal command
         document.getElementById('my_modal_4').showModal()
 
         axiosSecure.get(`/allUsers/${'deliveryMen'}`)
             .then(res => {
-                console.log(res.data);
+                // console.log(res.data);
+                setDelivaryMens(res.data);
+            })
+    }
+    // console.log(deliveryMens);
+    console.log(parcelId);
+
+    const handleAssignDeliveryMan = e => {
+        e.preventDefault();
+        const deliveryManId = e.target.deliveryManId.value;
+        const approximateDate = e.target.approximateDate.value;
+        console.log(deliveryManId, approximateDate);
+        const updateParcel = {
+            deliveryManId,
+            approximateDate,
+            status: 'On The Way'
+        }
+        axiosSecure.patch(`/updateBooking/${parcelId}`, updateParcel)
+            .then(res => {
+                console.log(res.data.modifiedCount);
+                refetch();
+                if (res.data.modifiedCount) {
+                    swal("Done!", "Assign Successful", "success")
+                }
+            })
+            .catch(error => {
+                toast.error(`${error}`, {
+                    position: "top-center",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "light",
+                });
+                return;
             })
 
     }
@@ -52,7 +96,7 @@ const AllParcels = () => {
                                 <td>{parcel.requestDate.split('T')[0]}</td>
                                 <td>{parcel.price}</td>
                                 <td>{parcel.status}</td>
-                                <td><button className="btn btn-sm btn-primary" onClick={handleLoadDelivaryMan}>Manage</button></td>
+                                <td><button className="btn btn-sm btn-primary" onClick={() => handleLoadDelivaryMan(parcel._id)}>Manage</button></td>
                             </tr>)
                         }
                     </tbody>
@@ -61,14 +105,17 @@ const AllParcels = () => {
             {/* modals */}
             <dialog id="my_modal_4" className="modal">
                 <div className="modal-box w-11/12">
-                    <form className="form-control w-full ">
+                    <form onSubmit={handleAssignDeliveryMan} className="form-control w-full ">
                         <label className="label">
                             <span className="text-xl font-medium">Select Deliverymen</span>
                         </label>
-                        <select name="type" className="select select-bordered text-lg border-blue-600">
+                        <select name="deliveryManId" className="select select-bordered text-lg border-blue-600">
                             <option disabled selected>Please select Deliverymen</option>
-                            <option value='user'>A1</option>
-                            <option value='deliveryMen'>A2</option>
+                            {
+                                deliveryMens.map(deliveryMan => <option key={deliveryMan._id} value={deliveryMan._id}>
+                                    {deliveryMan.name}
+                                </option>)
+                            }
                         </select>
 
                         <div className="form-control w-full">
@@ -91,7 +138,7 @@ const AllParcels = () => {
                 </div>
             </dialog>
 
-
+            <ToastContainer></ToastContainer>
         </div>
     );
 };

@@ -79,7 +79,7 @@ const MyParcel = () => {
                     <option disabled selected>Filter by status</option>
                     <option value='pending'>Pending</option>
                     <option value="delivered">Delivered</option>
-                    <option value="onTheWay">On The Way</option>
+                    <option value="On The Way">On The Way</option>
                     <option value="cancelled">Cancelled</option>
                 </select>
             </div>
@@ -105,10 +105,10 @@ const MyParcel = () => {
                                 <th>{parcel.parcelType}</th>
                                 <td>
                                     <p>Requested Delivary Date: {parcel?.requestDate.split('T')[0]}</p>
-                                    <p>Approximate Delivary Date: </p>
+                                    <p>Approximate Delivary Date: {parcel?.approximateDate?.split('T')[0]} </p>
                                     <p>Booking Date : {parcel?.bookingDate.split('T')[0]} </p>
                                 </td>
-                                <td>Delivary Men ID</td>
+                                <td>{parcel.deliveryManId}</td>
                                 <td className={parcel.status === 'delivered' ? 'text-green-600 font-bold' : '' || parcel.status === 'cancel' ? 'text-red-500 font-bold' : ''}>{parcel.status}</td>
                                 <td>
                                     {
