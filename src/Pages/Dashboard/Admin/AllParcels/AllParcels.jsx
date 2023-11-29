@@ -2,7 +2,6 @@
 import { useQuery } from "@tanstack/react-query";
 import useAxiosSecure from "../../../../hooks/useAxiosSecure";
 import { useState } from "react";
-import swal from "sweetalert";
 import { ToastContainer, toast } from "react-toastify";
 
 const AllParcels = () => {
@@ -49,7 +48,16 @@ const AllParcels = () => {
                 console.log(res.data.modifiedCount);
                 refetch();
                 if (res.data.modifiedCount) {
-                    swal("Done!", "Assign Successful", "success")
+                    toast.success('Assign Delivery Man Successful !', {
+                        position: "top-center",
+                        autoClose: 5000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                        theme: "light",
+                    });
                 }
             })
             .catch(error => {
@@ -95,7 +103,7 @@ const AllParcels = () => {
                                 <td>{parcel.bookingDate.split('T')[0]}</td>
                                 <td>{parcel.requestDate.split('T')[0]}</td>
                                 <td>{parcel.price}</td>
-                                <td>{parcel.status}</td>
+                                <td className={parcel.status === 'Delivered' ? 'text-green-600 font-bold' : '' || parcel.status === 'Cancel' ? 'text-red-600 font-bold' : '' || parcel.status === 'On The Way' ? 'text-blue-400 font-bold' : '' || parcel.status === 'Pending' ? 'text-orange-300 font-bold' : ''}>{parcel.status}</td>
                                 <td><button className="btn btn-sm btn-primary" onClick={() => handleLoadDelivaryMan(parcel._id)}>Manage</button></td>
                             </tr>)
                         }

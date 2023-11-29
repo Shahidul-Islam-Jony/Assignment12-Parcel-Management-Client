@@ -14,6 +14,8 @@ const MyParcel = () => {
     const { user } = useContext(AuthContext);
     console.log(user);
     const [deliveryMensId, setDelivaryMensId] = useState('');
+    const date = new Date().toLocaleDateString();
+    // console.log(date);
 
     useEffect(() => {
         setParcels(data)
@@ -96,8 +98,10 @@ const MyParcel = () => {
             image,
             deliveryMensId,
             rating,
+            date,
             feedback
         }
+        console.log(date);
         axiosPublic.post('/userRating', review)
             .then(res => {
                 console.log(res.data);
@@ -136,7 +140,7 @@ const MyParcel = () => {
                 <table className="table">
                     {/* head */}
                     <thead>
-                        <tr>
+                        <tr className="text-lg">
                             <th>Parcel Type</th>
                             <th>Date</th>
                             <th>Delivary Men ID</th>

@@ -18,7 +18,7 @@ const MyProfile = () => {
         const updateProfile = {
             photoUrl: imageUrl
         }
-        console.log(imageUrl);
+        // console.log(imageUrl);
         await axiosPublic.patch(`/updateUser/${user._id}`, updateProfile)
             .then(res => {
                 console.log(res);
@@ -60,7 +60,7 @@ const MyProfile = () => {
         const image = e.target.files[0]
         // console.log(image);
         const imageFile = { image: image }
-        console.log(imageFile);
+        // console.log(imageFile);
         const res = await axiosPublic.post(image_hosting_url, imageFile, {
             headers: {
                 'Content-Type': 'multipart/form-data'
@@ -69,7 +69,7 @@ const MyProfile = () => {
         // console.log('Image url', res.data.data.display_url);
         setImageUrl(res.data.data.display_url);
     }
-    console.log(imageUrl);
+    // console.log(imageUrl);
 
     return (
         <div className="flex ml-80 mt-28">

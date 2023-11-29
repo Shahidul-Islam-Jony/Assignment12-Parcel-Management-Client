@@ -9,16 +9,20 @@ const MyDeliveryList = () => {
     const axiosSecure = useAxiosSecure();
     const [deliveryParcels, setDeliveryParcels] = useState([]);
 
-    const { data: user } = useSingleUser();
+    const { data: user, isLoading, refetch } = useSingleUser();
 
     useEffect(() => {
-        axiosSecure.get(`/myDeliveryParcels/${user._id}`)
+        axiosSecure.get(`/myDeliveryParcels/${user?._id}`)
             .then(res => {
                 // console.log(res.data);
                 setDeliveryParcels(res.data);
             })
-    }, [axiosSecure, user._id])
-    // console.log(deliveryParcels);
+    }, [axiosSecure, user?._id])
+    console.log(deliveryParcels);
+
+    if (isLoading) {
+        return <div className="flex justify-center mt-10"><span className="loading loading-spinner loading-lg"></span></div>
+    }
 
     const handleCancelParcel = async (id) => {
         const updateParcel = {
@@ -37,6 +41,7 @@ const MyDeliveryList = () => {
                 await axiosSecure.patch(`/updateBooking/${id}`, updateParcel)
                     .then(res => {
                         console.log(res);
+                        refetch();
                         toast.success('Parcel canceled !', {
                             position: "top-center",
                             autoClose: 5000,
@@ -82,6 +87,7 @@ const MyDeliveryList = () => {
                 await axiosSecure.patch(`/updateBooking/${id}`, updateParcel)
                     .then(res => {
                         console.log(res);
+                        refetch();
                         toast.success('Parcel Delivered Success !', {
                             position: "top-center",
                             autoClose: 5000,
@@ -146,8 +152,8 @@ const MyDeliveryList = () => {
                                 <td>{parcel.address}</td>
                                 <td><button className="btn btn-sm btn-info">View Location</button></td>
                                 <td className="flex flex-col gap-2">
-                                    <button onClick={() => handleCancelParcel(parcel._id)} className="btn btn-sm btn-warning">Cancel</button>
-                                    <button onClick={() => handleDeliveryParcel(parcel._id)} className="btn btn-sm btn-primary">Deliver</button>
+                                    <button onClick={() => handleDeliveryParcel(parcel._id)} className={parcel.status === 'Delivered' ? 'btn btn-sm btn-primary btn-disabled' : '' || parcel.status === 'Cancelled' ? 'btn btn-sm btn-disabled' : '' || 'btn btn-primary btn-sm'}>Deliver</button>
+                                    <button onClick={() => handleCancelParcel(parcel._id)} className={parcel.status === 'Delivered' ? 'btn btn-sm btn-primary btn-disabled' : '' || parcel.status === 'Cancelled' ? 'btn btn-sm btn-disabled' : '' || 'btn btn-warning btn-sm'}>Cancel</button>
                                 </td>
                             </tr>)
                         }

@@ -29,7 +29,7 @@ const AllUsers = () => {
                         <tr className="text-lg">
                             <th className="w-48">User's Name</th>
                             <th className="w-56">Phone Number</th>
-                            <th className="w-72">Number of user Booked</th>
+                            <th className="w-72">Number of Parcel Booked</th>
                             <th className="w-64">Total Spent Amount</th>
                             <th>Action</th>
                         </tr>
