@@ -79,7 +79,8 @@ const MyProfile = () => {
                         <h2 className="text-xl font-bold">{user?.name}</h2>
                         <h2 className="text-xl font-bold">{user?.email}</h2>
                         <p className="font-medium">User ID : {user?._id}</p>
-                        <p className="font-medium">User Type : {user?.type}</p>
+                        <p className="font-medium">Phone Number: {user?.phoneNumber}</p>
+                        <p className="font-medium">Type : {user?.type}</p>
                         <div className="flex justify-between mt-10">
                             <button onClick={() => logout()} className="btn btn-sm">Sign Out</button>
                             <input className="ml-20" type="file" onChange={handleUploadImageBB} name="image" id="" />

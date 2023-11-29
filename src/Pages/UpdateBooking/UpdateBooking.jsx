@@ -10,10 +10,6 @@ const UpdateBooking = () => {
     const { id } = useParams();
     // console.log(id);
     const { data, isLoading } = useGetMyParcel();
-    const parcel = data?.find(parcel => parcel._id === id);
-    // console.log(parcel);
-    const prevDate = parcel?.date.split('T')[0];
-    // console.log(prevDate);
     const { user } = useContext(AuthContext)
     const [price, setPrice] = useState(0);
     const axiosPublic = useAxiosPublic();
@@ -21,6 +17,12 @@ const UpdateBooking = () => {
     if (isLoading) {
         return <div className="flex justify-center mt-28"><span className="loading loading-spinner loading-lg"></span></div>
     }
+    const parcel = data?.find(parcel => parcel._id === id);
+    // console.log(parcel);
+    const prevDate = parcel?.requestDate?.split('T')[0];
+    // console.log(prevDate);
+
+
 
     const handleUpdateParcel = e => {
         e.preventDefault();
@@ -51,7 +53,7 @@ const UpdateBooking = () => {
             addressLongitude,
             weight,
             price,
-            status: 'pending'
+            status: 'Pending'
         }
 
         axiosPublic.patch(`/modifyParcel/${id}`, parcel)
