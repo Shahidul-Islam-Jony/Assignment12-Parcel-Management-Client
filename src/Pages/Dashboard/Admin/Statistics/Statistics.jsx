@@ -1,9 +1,8 @@
 
-
 const Statistics = () => {
     return (
         <div>
-            <p>Statistics added soon</p>
+            This is Statistics page
         </div>
     );
 };

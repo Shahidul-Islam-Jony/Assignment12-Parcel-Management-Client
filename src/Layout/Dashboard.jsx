@@ -3,7 +3,7 @@ import useSingleUser from "../hooks/useSingleUser";
 
 
 const Dashboard = () => {
-    const { data: user, isLoading } = useSingleUser();
+    const { data: user } = useSingleUser();
     // console.log(user);
     return (
         <div className="flex w-11/12 mx-auto">
@@ -18,6 +18,7 @@ const Dashboard = () => {
                             <NavLink className="bg-white py-1 pl-4 md:mx-2 rounded-lg text-lg font-medium hover:bg-gray-300" to='myProfile'>My Profile</NavLink>
                         </div>
                     }
+
                     {
                         user?.type === 'admin' && <div className="flex flex-col gap-4">
                             {/* Admin panel */}
@@ -25,6 +26,15 @@ const Dashboard = () => {
                             <NavLink className="bg-white py-1 pl-4 md:mx-2 rounded-lg text-lg font-medium hover:bg-gray-300" to='/dashboard/allParcels'>All Parcels</NavLink>
                             <NavLink className="bg-white py-1 pl-4 md:mx-2 rounded-lg text-lg font-medium hover:bg-gray-300" to='/dashboard/allUsers'>All Users</NavLink>
                             <NavLink className="bg-white py-1 pl-4 md:mx-2 rounded-lg text-lg font-medium hover:bg-gray-300" to='/dashboard/allDelivaryMen'>All DelivaryMen</NavLink>
+                        </div>
+                    }
+
+                    {
+                        user?.type === 'deliveryMen' && <div className="flex flex-col gap-4">
+                            {/* Admin panel */}
+                            <NavLink className="bg-white py-1 pl-4 md:mx-2 rounded-lg text-lg font-medium hover:bg-gray-300" to='/dashboard/myDeliveryList'>My Delivery List</NavLink>
+                            <NavLink className="bg-white py-1 pl-4 md:mx-2 rounded-lg text-lg font-medium hover:bg-gray-300" to='/dashboard/myReviews'>My Reviews</NavLink>
+
                         </div>
                     }
 
