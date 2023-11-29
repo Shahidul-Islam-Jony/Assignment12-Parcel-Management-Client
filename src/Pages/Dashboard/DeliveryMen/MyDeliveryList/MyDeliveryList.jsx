@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import useAxiosSecure from "../../../../hooks/useAxiosSecure";
 import useSingleUser from "../../../../hooks/useSingleUser";
+import Swal from "sweetalert2";
+import { ToastContainer, toast } from "react-toastify";
 
 
 const MyDeliveryList = () => {
@@ -16,8 +18,97 @@ const MyDeliveryList = () => {
                 setDeliveryParcels(res.data);
             })
     }, [axiosSecure, user._id])
+    // console.log(deliveryParcels);
 
-    console.log(deliveryParcels);
+    const handleCancelParcel = async (id) => {
+        const updateParcel = {
+            status: 'Cancelled'
+        }
+        Swal.fire({
+            title: "Are you sure you want to cancel parcel?",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            cancelButtonText: "No",
+            confirmButtonText: "Yes!"
+        }).then(async (result) => {
+            if (result.isConfirmed) {
+                await axiosSecure.patch(`/updateBooking/${id}`, updateParcel)
+                    .then(res => {
+                        console.log(res);
+                        toast.success('Parcel canceled !', {
+                            position: "top-center",
+                            autoClose: 5000,
+                            hideProgressBar: false,
+                            closeOnClick: true,
+                            pauseOnHover: true,
+                            draggable: true,
+                            progress: undefined,
+                            theme: "light",
+                        });
+                    })
+                    .catch(error => {
+                        toast.error(`${error}`, {
+                            position: "top-center",
+                            autoClose: 5000,
+                            hideProgressBar: false,
+                            closeOnClick: true,
+                            pauseOnHover: true,
+                            draggable: true,
+                            progress: undefined,
+                            theme: "light",
+                        });
+                        return;
+                    })
+            }
+        });
+    }
+
+    const handleDeliveryParcel = async (id) => {
+        const updateParcel = {
+            status: 'Delivered'
+        }
+        Swal.fire({
+            title: "Is Parcel Delivered?",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            cancelButtonText: "No",
+            confirmButtonText: "Yes!"
+        }).then(async (result) => {
+            if (result.isConfirmed) {
+                await axiosSecure.patch(`/updateBooking/${id}`, updateParcel)
+                    .then(res => {
+                        console.log(res);
+                        toast.success('Parcel Delivered Success !', {
+                            position: "top-center",
+                            autoClose: 5000,
+                            hideProgressBar: false,
+                            closeOnClick: true,
+                            pauseOnHover: true,
+                            draggable: true,
+                            progress: undefined,
+                            theme: "light",
+                        });
+                    })
+                    .catch(error => {
+                        toast.error(`${error}`, {
+                            position: "top-center",
+                            autoClose: 5000,
+                            hideProgressBar: false,
+                            closeOnClick: true,
+                            pauseOnHover: true,
+                            draggable: true,
+                            progress: undefined,
+                            theme: "light",
+                        });
+                        return;
+                    })
+            }
+        });
+    }
 
     return (
         <div>
@@ -55,14 +146,15 @@ const MyDeliveryList = () => {
                                 <td>{parcel.address}</td>
                                 <td><button className="btn btn-sm btn-info">View Location</button></td>
                                 <td className="flex flex-col gap-2">
-                                    <button className="btn btn-sm btn-warning">Cancel</button>
-                                    <button className="btn btn-sm btn-primary">Deliver</button>
+                                    <button onClick={() => handleCancelParcel(parcel._id)} className="btn btn-sm btn-warning">Cancel</button>
+                                    <button onClick={() => handleDeliveryParcel(parcel._id)} className="btn btn-sm btn-primary">Deliver</button>
                                 </td>
                             </tr>)
                         }
                     </tbody>
                 </table>
             </div>
+            <ToastContainer></ToastContainer>
         </div>
     );
 };

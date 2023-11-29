@@ -77,10 +77,10 @@ const MyParcel = () => {
                 <p className="text-xl font-medium mr-3">Filter :</p>
                 <select onChange={handleFilter} className="select select-bordered max-w-xs">
                     <option disabled selected>Filter by status</option>
-                    <option value='pending'>Pending</option>
-                    <option value="delivered">Delivered</option>
+                    <option value='Pending'>Pending</option>
+                    <option value="Delivered">Delivered</option>
                     <option value="On The Way">On The Way</option>
-                    <option value="cancelled">Cancelled</option>
+                    <option value="Cancelled">Cancelled</option>
                 </select>
             </div>
 

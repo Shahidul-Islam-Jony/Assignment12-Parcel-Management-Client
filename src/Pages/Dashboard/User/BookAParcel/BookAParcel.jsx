@@ -43,7 +43,7 @@ const BookAParcel = () => {
             addressLongitude,
             weight,
             price,
-            status: 'pending'
+            status: 'Pending'
         }
 
         axiosPublic.post('/bookAParcel', parcel)
