@@ -16,7 +16,15 @@ const AllUserTable = ({ user }) => {
 
     const handleMakeDeliveryMen = async (id) => {
         console.log(id);
-        await axiosSecure.patch(`/modifyUser/${id}`, { type: 'deliveryMen' })
+        const modifyUser = {
+            type: 'deliveryMen',
+            totalDelivery: 0,
+            ratingGivenUser: 0,
+            ratings: 0,
+            totalRating: 0,
+            averageRating: 0
+        }
+        await axiosSecure.patch(`/modifyUser/${id}`, modifyUser)
             .then(res => {
                 console.log(res.data);
                 swal("Done!", "Now user is a delivery Men", "success")
