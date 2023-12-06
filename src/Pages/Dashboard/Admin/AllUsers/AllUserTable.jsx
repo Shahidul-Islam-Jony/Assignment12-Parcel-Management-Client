@@ -40,8 +40,8 @@ const AllUserTable = ({ user }) => {
     }
 
     return (
-        <div className="overflow-x-auto">
-            <table className="table text-lg">
+        <div className="w-[1080px]">
+            <table className="table w-[1080px]">
                 {/* head */}
                 <thead>
                     <tr className="text-lg">
@@ -52,7 +52,7 @@ const AllUserTable = ({ user }) => {
                         <th></th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody className="">
                     <tr>
                         <td className="w-48">{user.name}</td>
                         <td className="w-56">{user.phoneNumber}</td>

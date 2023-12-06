@@ -11,7 +11,7 @@ const AllDeliveryMen = () => {
             return res.data;
         }
     })
-    console.log(allDeliveryMens);
+    // console.log(allDeliveryMens);
     return (
         <div>
             <div className="my-10">

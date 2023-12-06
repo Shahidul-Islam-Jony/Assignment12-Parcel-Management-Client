@@ -19,13 +19,13 @@ const AllUsers = () => {
 
     return (
         <div>
-            <div className="my-10">
+            <div className="my-7">
                 <h2 className="text-3xl text-center font-bold">All users</h2>
             </div>
             <div className="overflow-x-auto ml-4">
-                <table className="table">
+                <table className="table w-[1080px]">
                     {/* head */}
-                    <thead>
+                    <thead className="">
                         <tr className="text-lg">
                             <th className="w-48">User's Name</th>
                             <th className="w-56">Phone Number</th>
