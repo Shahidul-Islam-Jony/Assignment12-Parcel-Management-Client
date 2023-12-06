@@ -72,9 +72,9 @@ const MyProfile = () => {
     // console.log(imageUrl);
 
     return (
-        <div className="flex ml-80 mt-28">
+        <div className="flex ml-3 md:ml-40 lg:ml-80 my-20">
             <div className="relative">
-                <div className="card w-[600px] bg-primary text-primary-content">
+                <div className="card w-[350px] md:w-[500px] lg:w-[600px] bg-primary text-primary-content">
                     <div className="card-body mt-16 text-center">
                         <h2 className="text-xl font-bold">{user?.name}</h2>
                         <h2 className="text-xl font-bold">{user?.email}</h2>
@@ -82,13 +82,13 @@ const MyProfile = () => {
                         <p className="font-medium">Phone Number: {user?.phoneNumber}</p>
                         <p className="font-medium">Type : {user?.type}</p>
                         <div className="flex justify-between mt-10">
-                            <button onClick={() => logout()} className="btn btn-sm">Sign Out</button>
-                            <input className="ml-20" type="file" onChange={handleUploadImageBB} name="image" id="" />
-                            <button onClick={handleUpdateImage} className="btn btn-sm">Update Profile</button>
+                            <button onClick={() => logout()} className="btn btn-sm bg-warning">Sign Out</button>
+                            <input className="lg:ml-20" type="file" onChange={handleUploadImageBB} name="image" id="" />
+                            <button onClick={handleUpdateImage} className="btn btn-sm btn-accent">Update Profile</button>
                         </div>
                     </div>
                 </div>
-                <div className="avatar -top-16 left-60 absolute z-40">
+                <div className="avatar -top-16 left-28 md:left-44 lg:left-60 absolute z-40">
                     <div className="w-36 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
                         <img src={user?.photoUrl} />
                     </div>

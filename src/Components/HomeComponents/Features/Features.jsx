@@ -8,7 +8,9 @@ import { FaBook } from "react-icons/fa";
 import { FaPeopleGroup } from "react-icons/fa6";
 import useAxiosPublic from "../../../hooks/useAxiosPublic";
 import { useEffect, useState } from "react";
-
+import 'aos/dist/aos.css';
+import AOS from 'aos';
+AOS.init();
 
 const Features = () => {
     const axiosPublic = useAxiosPublic();
@@ -33,7 +35,7 @@ const Features = () => {
             <h2 className="text-4xl text-center my-16 text-blue-800 font-medium">--- Our Features ---</h2>
             <div className="flex flex-col md:flex-row justify-between gap-10 mb-10">
                 {/* Parcel Safety */}
-                <div className="card card-compact md:w-[600px] pb-7 bg-blue-600 shadow-black shadow-xl">
+                <div  data-aos="flip-right" data-aos-delay="500" className="card card-compact md:w-[600px] pb-7 bg-blue-600 shadow-black shadow-xl">
                     <figure><img src={parcelSafety} className="w-full h-72" alt="Shoes" /></figure>
                     <div className="card-body">
                         <h2 className="text-center text-3xl font-bold mb-4 text-white">Parcel Safety</h2>
@@ -53,7 +55,7 @@ const Features = () => {
                     </div>
                 </div>
                 {/* Super Fast */}
-                <div className="card card-compact md:w-[600px] pb-7 bg-blue-600 shadow-black shadow-xl">
+                <div  data-aos="flip-right" data-aos-delay="500" className="card card-compact md:w-[600px] pb-7 bg-blue-600 shadow-black shadow-xl">
                     <figure><img src={superFast} className="w-full h-72" alt="Shoes" /></figure>
                     <div className="card-body">
                         <h2 className="text-center text-3xl font-bold text-white mb-4">Super Fast</h2>
@@ -73,7 +75,7 @@ const Features = () => {
                     </div>
                 </div>
                 {/* Real-Time Customer Support */}
-                <div className="card card-compact md:w-[600px] bg-blue-600 pb-7 shadow-black shadow-xl">
+                <div  data-aos="flip-right" data-aos-delay="500" className="card card-compact md:w-[600px] bg-blue-600 pb-7 shadow-black shadow-xl">
                     <figure><img src={customerSupport} className="w-full h-72" alt="Shoes" /></figure>
                     <div className="card-body">
                         <h2 className="text-center mb-4 text-3xl font-bold text-white">Real-Time Customer Support</h2>
