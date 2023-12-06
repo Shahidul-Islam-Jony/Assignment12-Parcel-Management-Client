@@ -2,7 +2,7 @@ import axios from 'axios'
 
 // axios instance
 const axiosPublic = axios.create({
-    baseURL: 'https://assignment12-server-jym80zao6-shahidul-islams-projects.vercel.app'
+    baseURL: 'https://assignment12-server-rosy-sigma.vercel.app'
 })
 
 const useAxiosPublic = () => {

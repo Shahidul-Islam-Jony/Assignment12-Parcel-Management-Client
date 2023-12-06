@@ -45,6 +45,7 @@ const BookAParcel = () => {
             price,
             status: 'Pending'
         }
+        console.log(parcel);
 
         axiosPublic.post('/bookAParcel', parcel)
             .then(res => {
