@@ -39,18 +39,18 @@ const Dashboard = () => {
                                             {
                                                 user?.type === 'admin' && <div className="flex flex-col gap-4">
                                                     {/* Admin panel */}
-                                                    <NavLink className="bg-white py-1 pl-4 md:mx-2 rounded-lg text-lg font-medium hover:bg-gray-300" to='/dashboard/statistics'>Statistics</NavLink>
-                                                    <NavLink className="bg-white py-1 pl-4 md:mx-2 rounded-lg text-lg font-medium hover:bg-gray-300" to='/dashboard/allParcels'>All Parcels</NavLink>
+                                                    <NavLink onClick={() => setActive(false)} className="bg-white py-1 pl-4 md:mx-2 rounded-lg text-lg font-medium hover:bg-gray-300" to='/dashboard/statistics'>Statistics</NavLink>
+                                                    <NavLink onClick={() => setActive(false)} className="bg-white py-1 pl-4 md:mx-2 rounded-lg text-lg font-medium hover:bg-gray-300" to='/dashboard/allParcels'>All Parcels</NavLink>
                                                     <NavLink className="bg-white py-1 pl-4 md:mx-2 rounded-lg text-lg font-medium hover:bg-gray-300" to='/dashboard/allDelivaryMen'>All DelivaryMen</NavLink>
-                                                    <NavLink className="bg-white py-1 pl-4 md:mx-2 rounded-lg text-lg font-medium hover:bg-gray-300" to='/dashboard/allUsers'>All Users</NavLink>
+                                                    <NavLink onClick={() => setActive(false)} className="bg-white py-1 pl-4 md:mx-2 rounded-lg text-lg font-medium hover:bg-gray-300" to='/dashboard/allUsers'>All Users</NavLink>
                                                 </div>
                                             }
 
                                             {
                                                 user?.type === 'deliveryMen' && <div className="flex flex-col gap-4">
                                                     {/* Admin panel */}
-                                                    <NavLink className="bg-white py-1 pl-4 md:mx-2 rounded-lg text-lg font-medium hover:bg-gray-300" to='/dashboard/myDeliveryList'>My Delivery List</NavLink>
-                                                    <NavLink className="bg-white py-1 pl-4 md:mx-2 rounded-lg text-lg font-medium hover:bg-gray-300" to='/dashboard/myReviews'>My Reviews</NavLink>
+                                                    <NavLink onClick={() => setActive(false)} className="bg-white py-1 pl-4 md:mx-2 rounded-lg text-lg font-medium hover:bg-gray-300" to='/dashboard/myDeliveryList'>My Delivery List</NavLink>
+                                                    <NavLink onClick={() => setActive(false)} className="bg-white py-1 pl-4 md:mx-2 rounded-lg text-lg font-medium hover:bg-gray-300" to='/dashboard/myReviews'>My Reviews</NavLink>
 
                                                 </div>
                                             }

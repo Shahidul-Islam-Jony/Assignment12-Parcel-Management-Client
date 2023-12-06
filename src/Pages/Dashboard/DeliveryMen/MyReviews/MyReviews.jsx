@@ -16,7 +16,9 @@ const MyReviews = () => {
         axiosSecure.get(`/myRatings/${user?._id}`)
             .then(res => {
                 // console.log(res.data);
-                setUserRatings(res.data);
+                if (res.data.length > 0) {
+                    setUserRatings(res.data);
+                }
             })
     }, [axiosSecure, user?._id])
     console.log(userRatings);
@@ -26,10 +28,10 @@ const MyReviews = () => {
     }
 
     return (
-        <div className="mt-10 ml-10">
-            <div className="grid grid-cols-3 gap-10">
+        <div className="ml-7 lg:ml-10">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-7">
                 {
-                    userRatings.map(userRating => <div key={userRating._id} className="w-96 bg-blue-700 text-white rounded-lg">
+                    userRatings.map(userRating => <div key={userRating._id} className="w-80 bg-blue-700 text-white rounded-lg">
                         <div className="flex justify-center pt-7">
                             <img className="w-40 h-40 rounded-full border-4 border-orange-600" src={userRating.image} alt="" />
                         </div>
