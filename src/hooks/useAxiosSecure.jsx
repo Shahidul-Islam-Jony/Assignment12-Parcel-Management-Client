@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const axiosSecure = axios.create({
-    baseURL: 'http://localhost:5000'
+    baseURL: 'https://assignment12-server-rosy-sigma.vercel.app'
 })
 
 const useAxiosSecure = () => {

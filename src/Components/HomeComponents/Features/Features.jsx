@@ -33,7 +33,7 @@ const Features = () => {
     return (
         <div>
             <h2 className="text-4xl text-center my-16 text-blue-800 font-medium">--- Our Features ---</h2>
-            <div className="flex flex-col md:flex-row justify-between gap-10 mb-10">
+            <div className="flex flex-col lg:flex-row justify-between gap-10 mb-10">
                 {/* Parcel Safety */}
                 <div  data-aos="flip-right" data-aos-delay="500" className="card card-compact md:w-[600px] pb-7 bg-blue-600 shadow-black shadow-xl">
                     <figure><img src={parcelSafety} className="w-full h-72" alt="Shoes" /></figure>
